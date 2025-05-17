@@ -1,26 +1,22 @@
 
-let url_header = "https://api.coingecko.com/api/v3"
-let coin_ids = "bitcoin,ethereum,matic-network"
-let currency = "usd"
-let tags = `/simple/price?ids=${coin_ids}&vs_currencies=${currency}`
 
-fetch(url_header+tags)
-    .then((response) => {                                                             /* Arrow function */
-    
-        if(response.ok == 0){
-                throw new Error("Response was not received properly")           /* Halts execution of program */
-                }
-        return response.json();
-    })
+const url = 'https://api.coingecko.com/api/v3/simple/price?vs_currencies=usd&ids=bitcoin%2Cethereum%2Cmatic-network&include_market_cap=true&include_24hr_change=true';
 
-    .then((json) => {
-            console.log(json);
-    })
-    .catch((error) => {
-            console.error("Error Received: ", error)
-    })
+const options = {
+  method: 'GET',
+  headers: {accept: 'application/json', 'x-cg-demo-api-key': 'CG-Wh6dF7jknRzkpSiQSiJG89sh'}
+};
 
 
+function storeCrytoStats(){
+
+           fetch(url, options)
+          .then(res => {
+                  console.log(res.json());
+                  
+                  })
+          .catch(err => console.error(err));
+}
 
 
 
