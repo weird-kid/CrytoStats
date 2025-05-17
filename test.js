@@ -1,7 +1,6 @@
 
-function get_name(){
-        return "likhith";
-}
+let name = "likhith";
+let age = 20;
+let sentence = `My name is ${name} and I am ${age} years old`
 
-let s = "My name is " + get_name();
-console.log(s);
+console.log(sentence)

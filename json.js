@@ -7,9 +7,7 @@ let str =  ` {
 }`;
 
 let obj = JSON.parse(str);
- 
-for(let i=0; i<2; i++){
-        console.log("The problem was from the contest " + obj.problemset[i].contest + " and it was of topic " +  obj.problemset[i].Topic);         
-}
+let obj1 = { "problemset":"3000", "platform":"Codeforces", "rating":"Newbie"};
+console.log(JSON.stringify(obj1))
 
 
