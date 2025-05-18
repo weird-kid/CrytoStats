@@ -1,6 +1,10 @@
 
-let name = "likhith";
-let age = 20;
-let sentence = `My name is ${name} and I am ${age} years old`
 
-console.log(sentence)
+obj = [ 
+        { name : "kang", role : "time-traveling Conquouer" },
+        { name : "Doom", role : "Leader"}
+];
+
+for(let i=0; i<2; i++){
+       console.log(obj[i].name, obj[i].role);
+}
