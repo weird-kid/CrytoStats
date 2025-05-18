@@ -4,14 +4,15 @@ const app = express()
 const mongoose = require("mongoose")
 const send_data_db = require("./models/api1_db.js")
 const api1 = require("./models/api1_url.js")
+const api2 = require("./models/api2_url.js")
 
 
 mongoose.connect(process.env.dbURL)
 .then( (ret_val) => console.log(" Connected to MongoDB "))
 .catch( (err)    => console.error(err));
 
-function storeCryptoStats() {
 
+function storeCryptoStats() {
         fetch(api1.url, api1.options)
         .then(res => res.json())
         .then((data) => {
@@ -22,5 +23,17 @@ function storeCryptoStats() {
         .catch(err => console.error(err));   
 }
 
-storeCryptoStats();
+app.get('/stats', (req, res) => {
+        if(req.query.coin != 'bitcoin' && req.query.coin != 'ethereum' &&  req.query.coin != 'matic-network')
+                 res.send("Enter a Valid Cryto-Coin");
+        else {
+                fetch(api2.url1 + req.query.coin + api2.url2, api1.options)
+                .then(res => res.json())
+                .then((data) => res.send(data))
+                .catch((err) => res.send(err)); 
+        }
+        
+});
 
+app.listen(3000, (err) =>  console.error(err));
+//storeCryptoStats();
