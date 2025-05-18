@@ -1,10 +1,11 @@
 
-const express = require("express")
-const app = express()
-const mongoose = require("mongoose")
-const send_data_db = require("./models/api1_db.js")
-const api1 = require("./models/api1_url.js")
-const api2 = require("./models/api2_url.js")
+const express        = require("express")
+const app            = express()
+const mongoose       = require("mongoose")
+const send_data_db   = require("./models/api1_db.js")
+const api1           = require("./models/api1_url.js")
+const api2           = require("./models/api2_url.js")
+const CheckQuery     = require("./models/query_list.js")
 
 
 mongoose.connect(process.env.dbURL)
@@ -24,7 +25,7 @@ function storeCryptoStats() {
 }
 
 app.get('/stats', (req, res) => {
-        if(req.query.coin != 'bitcoin' && req.query.coin != 'ethereum' &&  req.query.coin != 'matic-network')
+        if(!CheckQuery(req.query.coin))
                  res.send("Enter a Valid Cryto-Coin");
         else {
                 fetch(api2.url1 + req.query.coin + api2.url2, api1.options)
@@ -35,5 +36,14 @@ app.get('/stats', (req, res) => {
         
 });
 
+/*app.get('/deviation', (req, res) => {
+        if(!CheckQuery(req.query.coin)
+                 res.send("Enter a Valid Cryto-Coin");
+        else {
+
+        }
+
+});
+*/
 app.listen(3000, (err) =>  console.error(err));
 //storeCryptoStats();
