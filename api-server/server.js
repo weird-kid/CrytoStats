@@ -30,17 +30,19 @@ async function nats_consumer(){
                 let nat_conn = await nats.connect({servers: "0.0.0.0:4222"});
                 let subscription = nat_conn.subscribe("db.update", {queue : "db-servers"});
                 for await (const raw_msg of subscription){
-                        let json_msg = jc.decode(raw_msg);
                         try{ 
-                               if(json_msg.trigger == "update")
+                               let json_msg = jc.decode(raw_msg.data);
+                               if(json_msg.trigger == "update"){
                                         storeCryptoStats();
+                                        console.log("Successfull Trigger in Consumer from Publisher");
+                               }
                          }catch(inner_err){ 
                                console.error("Invalid accesss of json object");
                          }
                 }
          }
          catch(outer_err){
-                 console.error("NATS server Not running");
+                 console.error(outer_err);
          }
 }
                         
