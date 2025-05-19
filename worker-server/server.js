@@ -19,6 +19,6 @@ function rec_func() {
         cnt++;
         publisher(); 
         if(cnt <= 5)
-            setTimeout(rec_func, 3000);
+            setTimeout(rec_func, 15*(1000)*(60));
 }
 rec_func();
