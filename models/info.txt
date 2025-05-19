@@ -1,8 +1,0 @@
-Mongo DB 
-
-Autentication:
-        user: likhith2018
-        paswd: MgqAKVdvISwmUe6d
-
-URL to connect to cluster0
-        : mongodb+srv://likhith2018:<MgqAKVdvISwmUe6d>@cluster0.rhpfboq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
