@@ -19,10 +19,32 @@ function send_data_db(data, coin){
     .then(  (saved_data) =>  console.log("Below Data is successfully Saved","\n", saved_data) )
     .catch( (err)        =>  console.error("Error: ", err) );
      
-     return data_db;
 }
 
-module.exports = send_data_db;
+let result = 10;
+
+function get_data_db(coin){
+    console.log("\tBegining to fetch last 100 records of collection ",coin);
+
+    let db_coin =  mongoose.model(coin, api_schema);
+    return db_coin;
+}
+
+/*
+mongoose.connect(process.env.dbURL)
+.then(() => {
+        btc_db = mongoose.model("bitcoin", api_schema);
+        btc_db.find({})
+        .then((record) => console.log(record)) 
+        .catch((err) => console.error(err));
+})
+.catch((err) => console.error(err));
+*/
+
+
+
+module.exports = { 'send_data_db' : send_data_db,
+                   'get_data_db' : get_data_db };
 
          
 
