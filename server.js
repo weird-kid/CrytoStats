@@ -1,12 +1,11 @@
-
-const express        = require("express")
-const app            = express()
-const mongoose       = require("mongoose")
-const send_data_db   = require("./models/api1_db.js")
-const api1           = require("./models/api1_url.js")
-const api2           = require("./models/api2_url.js")
-const CheckQuery     = require("./models/query_list.js")
-
+const express                = require("express")
+const app                    = express()
+const mongoose               = require("mongoose")
+const send_data_db           = require("./models/api1_db.js")
+const api1                   = require("./models/api1_url.js")
+const api2                   = require("./models/api2_url.js")
+const CheckQuery             = require("./models/query_list.js")
+const StandardDeviation      = require("./models/standard_deviation.js")
 
 mongoose.connect(process.env.dbURL)
 .then( (ret_val) => console.log(" Connected to MongoDB "))
@@ -17,9 +16,9 @@ function storeCryptoStats() {
         fetch(api1.url, api1.options)
         .then(res => res.json())
         .then((data) => {
-                send_data_db(data.bitcoin);
-                send_data_db(data.ethereum);
-                send_data_db(data["matic-network"]);
+                send_data_db(data.bitcoin, "bitcoin");
+                send_data_db(data.ethereum, "ethereum");
+                send_data_db(data["matic-network"], "matic-network");
         })
         .catch(err => console.error(err));   
 }
@@ -36,14 +35,13 @@ app.get('/stats', (req, res) => {
         
 });
 
-/*app.get('/deviation', (req, res) => {
-        if(!CheckQuery(req.query.coin)
-                 res.send("Enter a Valid Cryto-Coin");
+app.get('/deviation', (req,res) => {
+        if(!CheckQuery(req.query.coin))
+                res.send("Enter a Valid Cryto-Coin");
         else {
-
+                res.send({ "deviation" : StandardDeviation(res.query.coin)});  
         }
-
 });
-*/
 app.listen(3000, (err) =>  console.error(err));
+
 //storeCryptoStats();
